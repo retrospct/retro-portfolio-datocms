@@ -1,12 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid*/
 
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { Link } from "gatsby";
 import { StaticQuery, graphql } from "gatsby";
 import { HelmetDatoCms } from "gatsby-source-datocms";
-
-import "../styles/index.sass";
 
 const TemplateWrapper = ({ children }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -43,7 +40,7 @@ const TemplateWrapper = ({ children }) => {
           }
         }
       `}
-      render={data => (
+      render={(data) => (
         <div className={`container ${showMenu ? "is-open" : ""}`}>
           <HelmetDatoCms
             favicon={data.datoCmsSite.faviconMetaTags}
@@ -58,7 +55,7 @@ const TemplateWrapper = ({ children }) => {
                 className="sidebar__intro"
                 dangerouslySetInnerHTML={{
                   __html:
-                    data.datoCmsHome.introTextNode.childMarkdownRemark.html
+                    data.datoCmsHome.introTextNode.childMarkdownRemark.html,
                 }}
               />
               <ul className="sidebar__menu">
@@ -91,7 +88,7 @@ const TemplateWrapper = ({ children }) => {
               <div className="mobile-header">
                 <div className="mobile-header__menu">
                   <button
-                    onClick={e => {
+                    onClick={(e) => {
                       e.preventDefault();
                       setShowMenu(!showMenu);
                     }}
@@ -108,10 +105,6 @@ const TemplateWrapper = ({ children }) => {
       )}
     />
   );
-};
-
-TemplateWrapper.propTypes = {
-  children: PropTypes.object
 };
 
 export default TemplateWrapper;

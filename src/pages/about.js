@@ -1,8 +1,8 @@
-import React from 'react'
-import { graphql } from 'gatsby'
-import { HelmetDatoCms } from 'gatsby-source-datocms'
-import Img from 'gatsby-image'
-import Layout from "../components/layout"
+import React from "react";
+import { graphql } from "gatsby";
+import { HelmetDatoCms } from "gatsby-source-datocms";
+import { GatsbyImage } from "gatsby-plugin-image";
+import Layout from "../components/layout";
 
 const About = ({ data: { about } }) => (
   <Layout>
@@ -12,7 +12,10 @@ const About = ({ data: { about } }) => (
         <h1 className="sheet__title">{about.title}</h1>
         <p className="sheet__lead">{about.subtitle}</p>
         <div className="sheet__gallery">
-          <Img fluid={about.photo.fluid} />
+          <GatsbyImage
+            image={about.photo.gatsbyImageData}
+            alt={about.photo.alt}
+          />
         </div>
         <div
           className="sheet__body"
@@ -23,9 +26,9 @@ const About = ({ data: { about } }) => (
       </div>
     </article>
   </Layout>
-)
+);
 
-export default About
+export default About;
 
 export const query = graphql`
   query AboutQuery {
@@ -36,9 +39,11 @@ export const query = graphql`
       title
       subtitle
       photo {
-        fluid(maxWidth: 600, imgixParams: { fm: "jpg", auto: "compress" }) {
-          ...GatsbyDatoCmsSizes
-        }
+        alt
+        gatsbyImageData
+        # fluid(maxWidth: 600, imgixParams: { fm: "jpg", auto: "compress" }) {
+        #   ...GatsbyDatoCmsSizes
+        # }
       }
       bioNode {
         childMarkdownRemark {
@@ -47,4 +52,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;

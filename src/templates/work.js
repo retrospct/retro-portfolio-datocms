@@ -1,11 +1,10 @@
-import React from 'react'
-import Slider from 'react-slick'
-import { HelmetDatoCms } from 'gatsby-source-datocms'
-import Img from 'gatsby-image'
-import { graphql } from 'gatsby'
-import Layout from "../components/layout"
+import React from "react";
+import { HelmetDatoCms } from "gatsby-source-datocms";
+import { GatsbyImage } from "gatsby-plugin-image";
+import { graphql } from "gatsby";
+import Layout from "../components/layout";
 
-export default ({ data }) => (
+const Work = ({ data }) => (
   <Layout>
     <article className="sheet">
       <HelmetDatoCms seo={data.datoCmsWork.seoMetaTags} />
@@ -13,11 +12,13 @@ export default ({ data }) => (
         <h1 className="sheet__title">{data.datoCmsWork.title}</h1>
         <p className="sheet__lead">{data.datoCmsWork.excerpt}</p>
         <div className="sheet__slider">
-          <Slider infinite={true} slidesToShow={2} arrows>
-            {data.datoCmsWork.gallery.map(({ fluid }) => (
-              <img alt={data.datoCmsWork.title} key={fluid.src} src={fluid.src} />
-            ))}
-          </Slider>
+          {data.datoCmsWork.gallery.map((item) => (
+            <img
+              alt={data.datoCmsWork.title}
+              key={item.originalId}
+              src={item.url}
+            />
+          ))}
         </div>
         <div
           className="sheet__body"
@@ -26,12 +27,17 @@ export default ({ data }) => (
           }}
         />
         <div className="sheet__gallery">
-          <Img fluid={data.datoCmsWork.coverImage.fluid} />
+          <GatsbyImage
+            image={data.datoCmsWork.coverImage.gatsbyImageData}
+            alt={data.datoCmsWork.coverImage.alt}
+          />
         </div>
       </div>
     </article>
   </Layout>
-)
+);
+
+export default Work;
 
 export const query = graphql`
   query WorkQuery($slug: String!) {
@@ -42,9 +48,11 @@ export const query = graphql`
       title
       excerpt
       gallery {
-        fluid(maxWidth: 200, imgixParams: { fm: "jpg", auto: "compress" }) {
-          src
-        }
+        url
+        originalId
+        # fluid(maxWidth: 200, imgixParams: { fm: "jpg", auto: "compress" }) {
+        #   src
+        # }
       }
       descriptionNode {
         childMarkdownRemark {
@@ -52,11 +60,13 @@ export const query = graphql`
         }
       }
       coverImage {
-        url
-        fluid(maxWidth: 600, imgixParams: { fm: "jpg", auto: "compress" }) {
-          ...GatsbyDatoCmsSizes
-        }
+        alt
+        gatsbyImageData
+        # url
+        # fluid(maxWidth: 600, imgixParams: { fm: "jpg", auto: "compress" }) {
+        #   ...GatsbyDatoCmsSizes
+        # }
       }
     }
   }
-`
+`;

@@ -2,11 +2,13 @@ require("dotenv").config();
 
 module.exports = {
   siteMetadata: {
-    title: `Creative Portfolio`,
+    title: `Justin Lee (retrospct) | Portfolio`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sass`,
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     `gatsby-transformer-remark`,
     {
       resolve: `gatsby-source-datocms`,
