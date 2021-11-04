@@ -40,7 +40,7 @@ export const query = graphql`
       subtitle
       photo {
         alt
-        gatsbyImageData
+        gatsbyImageData(width: 600)
         # fluid(maxWidth: 600, imgixParams: { fm: "jpg", auto: "compress" }) {
         #   ...GatsbyDatoCmsSizes
         # }

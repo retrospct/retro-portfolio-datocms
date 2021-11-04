@@ -41,7 +41,7 @@ export const query = graphql`
           excerpt
           coverImage {
             alt
-            gatsbyImageData
+            gatsbyImageData(width: 600)
             # url
             # fluid(maxWidth: 450, imgixParams: { fm: "jpg", auto: "compress" }) {
             #   ...GatsbyDatoCmsSizes
